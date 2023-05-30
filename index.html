@@ -9,25 +9,66 @@
   <title>Frontend Mentor | Todo app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
+  <!-- <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+  </style> -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  Todo
-
-  <!-- Add dynamic number --> items left
-
-  All
-  Active 
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
+  <div id="todo-wrapper">
+    <div class="todo-background"></div>
+    <div class="todo-container">
+      <div class="todo-container-header">
+        <h1>Todo</h1>
+        <img src="images/icon-moon.svg" alt="moon">
+      </div>
+      <form class="todo-form">
+        <div class="check-input"></div>
+        <input type="text" id="todo-input" />
+      </form>
+      <div class="todo-list">
+        <ul class="todo-items">
+          <div class="no-task-added">
+            <h1>Add New Task</h1>
+          </div>
+          <!-- <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
+          <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
+          <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
+          <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
+          <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
+          <div class="todo-item">
+            <div class="check"></div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div> -->
+        </ul>
+        <div class="todo-footer">
+          <p><span></span> Items left</p>
+          <div class="todo-categories">
+            <button>All</button>
+            <button>Active</button>
+            <button>Completed</button>
+          </div>
+          <button class="clear-completed">Clear Completed</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
