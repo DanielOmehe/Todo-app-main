@@ -44,3 +44,10 @@ The designs were created to the following widths:
 
 - Family: [Josefin Sans](https://fonts.google.com/specimen/Josefin+Sans)
 - Weights: 400, 700
+
+        <div class="todo-item">
+            <div class="check-box">
+              <img src="images/icon-check.svg" alt="" class="check">
+            </div>
+            <p class="todo-name">Jog around the park 3X</p>
+          </div>
