@@ -4,6 +4,7 @@ const taskTabs = document.querySelectorAll(".taskList");
 const taskInput = document.getElementById("task-input");
 const todoForm = document.querySelector(".todo-form");
 const clearCompleted = document.querySelector(".clear-completed");
+let toggle = false
 
 tabSwitcher.forEach((tab, index) => {
   tab.addEventListener("click", (e) => {
@@ -72,24 +73,14 @@ function addTodos(todos) {
   });
   document.querySelector(".all-todos").innerHTML = `${todoList.length}`;
 
-  const todoItem = document.querySelectorAll('.todo-item');
-  todoItem.forEach((item)=>{
-    item.addEventListener('hover', ()=>{
-      const deleteIcon = document.querySelectorAll('.delete');
-      deleteIcon.forEach((icon, index)=>{
-        icon.innerHTML = '';
-      })
-    })
-  })
-
   const deleteIcon = document.querySelectorAll(".delete");
   deleteIcon.forEach((icon, index) => {
-    icon.addEventListener("click", (e) => deleteTodo(e, index));
+    icon.addEventListener("click", (e) => deleteTodo(e.target, index, todoItems));
   });
 
   const checkBox = document.querySelectorAll(".check-box");
   checkBox.forEach((box, index) => {
-    box.addEventListener("click", (e) => toggleCompletedTodos(e, index));
+    box.addEventListener("click", (e) => toggleCompletedTodos(e.target, index, todos));
   });
 }
 
@@ -97,54 +88,105 @@ function addActiveTodo(todos) {
   if(todos.length > 0) document.querySelector(".no-active-task").style.display = "none";
 
   const todoItems = document.querySelector(".active-tasks");
-  todos.map((todo, index) => {
+  todos.map((todo) => {
     if (!todo.isCompleted) {
       todoItems.innerHTML += `
                 <div class="todo-item" id='${todo.id}'>
                     <div class="check-box"></div>
                     <p class="todo-name">${todo.name}</p>
-                    <div class='delete'></div>
+                    <div class='delete'>
+                      <img src='images/icon-cross.svg' />
+                    </div>
                 </div>
             `;
     }
   });
-}
+
+  const deleteIcon = document.querySelectorAll(".delete");
+  deleteIcon.forEach((icon, index) => {
+    icon.addEventListener("click", (e) => deleteTodo(e.target, index, todoItems));
+  });
+
+};
 
 function setCompletedTodos(todos) {
   if(todos.length > 0) document.querySelector(".no-completed-task").style.display = "none";
   const todoItems = document.querySelector(".completed-tasks");
-  todos.map((todo, index) => {
+  todos.map((todo, index)=>{
     if (todo.isCompleted) {
       todoItems.innerHTML += `
                 <div class="todo-item" id='${todo.id}'>
                     <div class="check-box"></div>
                     <p class="todo-name">${todo.name}</p>
-                    <div class='delete'></div>
+                    <div class='delete'>
+                      <img src='images/icon-cross.svg' />
+                    </div>
                 </div>
             `;
     }
   });
+
+  const deleteIcon = document.querySelectorAll(".delete");
+  deleteIcon.forEach((icon, index) => {
+    icon.addEventListener("click", (e) => deleteTodo(e.target, index, todoItems));
+  });
 }
 
-function deleteTodo(node, index) {
-  let mainparent = node.target.parentElement;
-  let parent = mainparent.parentElement;
+function deleteTodo(node, index, items){
+  let parent = node.parentElement.parentElement;
 
   let todos = todoList.filter((item) => item.id !== parent.id);
-  setTodos(todos);
   localStorage.removeItem(todoList[index]);
+  items.removeChild(parent);
+  if(items.length === 0){
+    items.parentElement.querySelector('div').style.display = 'block';
+  }
 
-  const allTasks = document.querySelector(".all-tasks");
-  allTasks.removeChild(parent);
+  setTodos(todos);
+  refreshTodoList()
+}
+
+function toggleCompletedTodos(node, index, todos){
+  const parent = node.parentElement;
+  parent.querySelector('.todo-name').classList.toggle('completed')
+
+  todos.map((todo)=>{
+    if(todo.id === parent.id){
+      todo.isCompleted = !todo.isCompleted;
+    }
+  })
+
+  if(!todos[index].isCompleted){
+    node.innerHTML = `<img src='images/icon-check.svg' alt='check' />`;
+    // todoList[index].isCompleted = true;
+    console.log(node.innerHTML);
+  }else{
+    node.innerHTML = '';
+    // todoList[index].isCompleted = false;
+    console.log(node.innerHTML);
+  }
+  setTodos(todos);
+  node.classList.toggle('checked');
+  refreshTodoList(todos)
+}
+
+function refreshTodoList(todos){
+  setTodos(todos);
+  setCompletedTodos(todos.filter(todo => todo.isCompleted))
 }
 
 clearCompleted.addEventListener("click", clearCompletedTodos);
 
 function clearCompletedTodos() {
   todoList.filter((todo) => !todo.isCompleted);
-  console.log(todoList);
   const completedTask = document.querySelector(".completed-tasks");
-  console.log(completedTask.children);
+
+  let count = completedTask.children.length;
+  while(count > 0){
+    count--;
+    completedTask.removeChild(completedTask.children[count]);
+    completedTask.parentElement.querySelector('.no-completed-tasks').style.display = 'block';
+  }
 }
 
 let theme = 'light';
@@ -170,7 +212,7 @@ function toggleTheme(theme){
   }
 }
 
-(function () {
+(function(){
   addTodos(todoList);
   addActiveTodo(todoList);
   setCompletedTodos(todoList);

@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
   <title>Frontend Mentor | Todo app</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="todo-wrapper">
@@ -22,20 +21,23 @@
       </form>
       <div class="todo-list">
         <ul class="todo-items-category">
-          <div class="taskList all-tasks active">
+          <div class="taskList active">
             <div class="no-task-added">
               <h1>Add New Task</h1>
             </div>
+            <div class="all-tasks"></div>
           </div>
-          <div class="taskList active-tasks">
+          <div class="taskList">
             <div class="no-active-task">
               <h1>No Active Task</h1>
             </div>
+            <div class="active-tasks"></div>
           </div>
-          <div class="taskList completed-tasks">
+          <div class="taskList">
             <div class="no-completed-task">
               <h1>No Completed Task</h1>
             </div>
+            <div class="completed-tasks"></div>
           </div>
         </ul>
         <div class="todo-footer">
@@ -49,11 +51,14 @@
         </div>
       </div>
     </div>
+    <div class="drag-info">
+      <p>Drag and drop to sort list</p>
+    </div>
   </div>
   <footer class="footer">
     <div class="attribution">
       Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Your Name Here</a>.
+      Coded by <a href="#">Daniel Omehe</a>.
     </div>
   </footer>
   <script src="main.js"></script>
